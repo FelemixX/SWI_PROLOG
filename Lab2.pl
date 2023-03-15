@@ -84,6 +84,8 @@ has('Nick', television).
 %d
 has('Pyotr', rubles(Money)), price(video, rubles(Cost)), Money >= Cost.
 has(Rich, rubles(TheMost)), has(Who, rubles(Sum)), has(Who2, rubles(Sum2)), has(Who3, rubles(Sum3)), TheMost>Sum,Sum>Sum2,Sum2>Sum3,rich\=Who2,Rich\=Who3,Who2\=Who3. %???
+%e
+can_buy(Who, Item) :- has(Who, rubles(Х)), price(Item, З), Х>=З, not(has(Who, Item)), Item\=rub(_). 
 %f 
 has('Nick', rubles(Money)), price(Item, rubles(Cost)), Money >= Cost.
 has('Nick', Item), has('Ivan', Item), Item \= rubles(Money).
