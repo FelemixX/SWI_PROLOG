@@ -79,3 +79,103 @@ fib_helper(N, A, B, F) :-
   fib_helper(N1, B, Sum, F).
   
 %fibAcc(10, F).
+
+%3.7
+
+%even series sum
+fib_even_limit(Limit, Sum) :-
+  fib_even_sum_limit(0, 1, 0, Limit, Sum).
+
+fib_even_sum_limit(A, B, Acc, Limit, Acc) :-
+  B > Limit,
+  B1 is A + B,
+  B1 > Limit.
+fib_even_sum_limit(A, B, Acc, Limit, Sum) :-
+  B =< Limit,
+  B mod 2 =:= 0,
+  Acc1 is Acc + B,
+  A1 is B,
+  B1 is A + B,
+  fib_even_sum_limit(A1, B1, Acc1, Limit, Sum).
+fib_even_sum_limit(A, B, Acc, Limit, Sum) :-
+  B =< Limit,
+  B mod 2 =:= 1,
+  A1 is B,
+  B1 is A + B,
+  fib_even_sum_limit(A1, B1, Acc, Limit, Sum).
+  
+  fib_odd_limit(Limit, Sum) :-
+  fib_odd_sum_limit(0, 1, 0, Limit, Sum).
+
+
+%odd series sum
+fib_odd_sum_limit(A, B, Acc, Limit, Acc) :-
+  B > Limit,
+  B1 is A + B,
+  B1 > Limit.
+fib_odd_sum_limit(A, B, Acc, Limit, Sum) :-
+  B =< Limit,
+  B mod 2 =:= 1,
+  Acc1 is Acc + B,
+  A1 is B,
+  B1 is A + B,
+  fib_odd_sum_limit(A1, B1, Acc1, Limit, Sum).
+fib_odd_sum_limit(A, B, Acc, Limit, Sum) :-
+  B =< Limit,
+  B mod 2 =:= 0,
+  A1 is B,
+  B1 is A + B,
+  fib_odd_sum_limit(A1, B1, Acc, Limit, Sum).
+  
+%3.8
+%true if X is a sum of odd nth numbers
+is_sum_of_odd_fib(N, X) :-
+  is_sum_of_odd_fib_helper(1, 1, N, X).
+
+is_sum_of_odd_fib_helper(A, B, N, X) :-
+  N > 0,
+  B1 is A + B,
+  A1 is B,
+  N1 is N - 1,
+  is_sum_of_odd_fib_helper(A1, B1, N1, X).
+is_sum_of_odd_fib_helper(A, B, N, X) :-
+  N =:= 0,
+  X =:= A.
+is_sum_of_odd_fib_helper(A, B, N, X) :-
+  N < 0,
+  X =:= 0.
+  
+%true if X is a sum of even nth numbers
+is_sum_of_even_fib(N, X) :-
+  is_sum_of_even_fib_helper(1, 2, N, X).
+
+is_sum_of_even_fib_helper(A, B, N, X) :-
+  N > 0,
+  B1 is A + B,
+  A1 is B,
+  N1 is N - 1,
+  is_sum_of_even_fib_helper(A1, B1, N1, X).
+is_sum_of_even_fib_helper(A, B, N, X) :-
+  N =:= 0,
+  X =:= A.
+is_sum_of_even_fib_helper(A, B, N, X) :-
+  N < 0,
+  X =:= 0.
+  
+%3.9
+% Ackermann function for non-negative integers
+ackermann(0, N, R) :-
+  R is N + 1.
+ackermann(M, 0, R) :-
+  M > 0,
+  M1 is M - 1,
+  ackermann(M1, 1, R).
+ackermann(M, N, R) :-
+  M > 0,
+  N > 0,
+  M1 is M - 1,
+  N1 is N - 1,
+  ackermann(M, N1, R1),
+  ackermann(M1, R1, R).
+
+%ackermann(1, 2, R).
