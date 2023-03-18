@@ -81,86 +81,43 @@ fib_helper(N, A, B, F) :-
 %fibAcc(10, F).
 
 %3.7
-
-%even series sum
-fib_even_limit(Limit, Sum) :-
-  fib_even_sum_limit(0, 1, 0, Limit, Sum).
-
-fib_even_sum_limit(A, B, Acc, Limit, Acc) :-
-  B > Limit,
-  B1 is A + B,
-  B1 > Limit.
-fib_even_sum_limit(A, B, Acc, Limit, Sum) :-
-  B =< Limit,
-  B mod 2 =:= 0,
-  Acc1 is Acc + B,
-  A1 is B,
-  B1 is A + B,
-  fib_even_sum_limit(A1, B1, Acc1, Limit, Sum).
-fib_even_sum_limit(A, B, Acc, Limit, Sum) :-
-  B =< Limit,
-  B mod 2 =:= 1,
-  A1 is B,
-  B1 is A + B,
-  fib_even_sum_limit(A1, B1, Acc, Limit, Sum).
-  
-  fib_odd_limit(Limit, Sum) :-
-  fib_odd_sum_limit(0, 1, 0, Limit, Sum).
+sum_odd_fibonacci(0, 0).
+sum_odd_fibonacci(N, Sum):-
+    N > 0,
+    N1 is N - 1,
+    sum_odd_fibonacci(N1, Sum1),
+    fib(N, F),
+    (F mod 2 =:= 1 -> Sum is Sum1 + F ; Sum is Sum1).
 
 
-%odd series sum
-fib_odd_sum_limit(A, B, Acc, Limit, Acc) :-
-  B > Limit,
-  B1 is A + B,
-  B1 > Limit.
-fib_odd_sum_limit(A, B, Acc, Limit, Sum) :-
-  B =< Limit,
-  B mod 2 =:= 1,
-  Acc1 is Acc + B,
-  A1 is B,
-  B1 is A + B,
-  fib_odd_sum_limit(A1, B1, Acc1, Limit, Sum).
-fib_odd_sum_limit(A, B, Acc, Limit, Sum) :-
-  B =< Limit,
-  B mod 2 =:= 0,
-  A1 is B,
-  B1 is A + B,
-  fib_odd_sum_limit(A1, B1, Acc, Limit, Sum).
-  
+sum_even_fibonacci(0, 0).
+sum_even_fibonacci(N, Sum):-
+    N > 0,
+    N1 is N - 1,
+    sum_even_fibonacci(N1, Sum1),
+    fib(N, F),
+    (F mod 2 =:= 0 -> Sum is Sum1 + F ; Sum is Sum1).
+
+
 %3.8
-%true if X is a sum of odd nth numbers
-is_sum_of_odd_fib(N, X) :-
-  is_sum_of_odd_fib_helper(1, 1, N, X).
+sum_odd(Sum, N):-sum_odd1(N, Sum, 0, 0).
+sum_odd1(N, X, Sum, I):-
+    Sum =< X,
+    I1 is I+1,
+    sum_odd_fibonacci(I1, Sum1),
+    (Sum1 =:= X -> Sum2 is X+1 ; Sum2 is Sum1),
+    sum_odd1(N, X, Sum2, I1).
+sum_odd1(Sum, _, _, Sum).
 
-is_sum_of_odd_fib_helper(A, B, N, X) :-
-  N > 0,
-  B1 is A + B,
-  A1 is B,
-  N1 is N - 1,
-  is_sum_of_odd_fib_helper(A1, B1, N1, X).
-is_sum_of_odd_fib_helper(A, B, N, X) :-
-  N =:= 0,
-  X =:= A.
-is_sum_of_odd_fib_helper(A, B, N, X) :-
-  N < 0,
-  X =:= 0.
-  
-%true if X is a sum of even nth numbers
-is_sum_of_even_fib(N, X) :-
-  is_sum_of_even_fib_helper(1, 2, N, X).
 
-is_sum_of_even_fib_helper(A, B, N, X) :-
-  N > 0,
-  B1 is A + B,
-  A1 is B,
-  N1 is N - 1,
-  is_sum_of_even_fib_helper(A1, B1, N1, X).
-is_sum_of_even_fib_helper(A, B, N, X) :-
-  N =:= 0,
-  X =:= A.
-is_sum_of_even_fib_helper(A, B, N, X) :-
-  N < 0,
-  X =:= 0.
+sum_even(Sum, N):-sum_even1(N, Sum, 0, 0).
+sum_even1(N, X, Sum, I):-
+    Sum =< X,
+    I1 is I+1,
+    sum_even_fibonacci(I1, Sum1),
+    (Sum1 =:= X -> Sum2 is X+1 ; Sum2 is Sum1),
+    sum_even1(N, X, Sum2, I1).
+sum_even1(Sum, _, _, Sum).
   
 %3.9
 % Ackermann function for non-negative integers
