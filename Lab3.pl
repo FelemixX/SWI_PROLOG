@@ -1,10 +1,10 @@
 %4.2
-size(Number, 1) :- Number >= 158, Number < 164, !.
-size(Number, 2) :- Number >= 164, Number < 170, !.
-size(Number, 3) :- Number >= 170, Number < 176, !.
-size(Number, 4) :- Number >= 176, Number < 182, !.
-size(Number, 5) :- Number >= 182, Number =< 188, !.
-size(_, false). % return false for any other input
+cloth(Number, 1) :- Number >= 158, Number < 164, !.
+cloth(Number, 2) :- Number >= 164, Number < 170, !.
+cloth(Number, 3) :- Number >= 170, Number < 176, !.
+cloth(Number, 4) :- Number >= 176, Number < 182, !.
+cloth(Number, 5) :- Number >= 182, Number =< 188, !.
+cloth(_, false). % return false for any other input
 
 %4.3
 %Программа 3 
@@ -26,7 +26,8 @@ country('China','Pekin').
 country('Japan','Tokyo').
 country('Italy','Rome').
 
-print_countries :- country(Country, City), write(Country), write(' - '), write(City), nl, fail.
+print_countries :- country(Country, Ci
+ty), write(Country), write(' - '), write(City), nl, fail.
 
 %print_countries will print all countries and their cities in the database
 
@@ -41,8 +42,8 @@ r:- repeat, read(X), write(X), X = stop.
 %Возьмем во внимание пояснение к заданию 4.5 и добавим туда условие, что если предикат был успешно согласован без repeat, то repeat больше ничего не вызовет.
 
 %4.7
-animal(Animal, Lives) :- lives(X, Y), Animal = X, Lives = Y.
-
+%animal(Animal, Lives) :- lives(X, Y), Animal = X, Lives = Y.
+%переделать функции на выборку тех кто живет толко в двух средах на срезы 
 lives('Zebra', ground).
 lives('Dog', ground).
 lives('Carp', water).
@@ -93,14 +94,6 @@ belongsToList(Element, [_|Tail]) :-
 
 %belongsToList(2, [22,1,3]).
 
-%5.2.5
-inverseList([], []).
-inverseList([X|Xs], Ys) :-
-    inverseList(Xs, Zs),
-    append(Zs, [X], Ys).
-
-%inverseList([1,2,3,4,5], List).
-
 %5.2.3
 sum_list([], 0).
 sum_list([H|T], Sum) :-
@@ -120,3 +113,16 @@ minMaxList([X|Xs], CurrMin, CurrMax, Min, Max) :-
     minMaxList(Xs, NewCurrMin, NewCurrMax, Min, Max).
 
 %minMaxList([1,0,9,2,0], Min, Max).
+
+%5.2.5
+inverseList([], []).
+inverseList([X|Xs], Ys) :-
+    inverseList(Xs, Zs),
+    append(Zs, [X], Ys).
+
+%inverseList([1,2,3,4,5], List).
+
+livesIntTwoEnv(Animal) :- animal(Animal), twoEnv(Animal, _, _).
+twoEnv(Animal, Env1, Env2) :-  lives(Animal, Env1), lives(Animal, Env2), Env1 \= Env2, !.
+
+%Я сдал неработающий код АХАХАХАХ
