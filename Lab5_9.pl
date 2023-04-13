@@ -1,4 +1,3 @@
-Дима, [4/13/2023 5:21 PM]
 % Вариант 9
 % Предметная область – семья. 
 % Каждая семья может быть описана структурой из трех компонент: мужа, жены и детей.
@@ -94,9 +93,6 @@ f_updateHusband(FamilyID, HusbandID) :-
   % Добавить family с новым мужем
   assert(family(FamilyID, HusbandID, WifeID, Children)),
   write('Муж у семьи '), write(FamilyID), write(' обновлен'), nl.
-
-Дима, [4/13/2023 5:21 PM]
-
 
 % Обновить поле жена в family по id
 f_updateWife(FamilyID, WifeID) :- 
