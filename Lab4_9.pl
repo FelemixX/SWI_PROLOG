@@ -39,7 +39,7 @@ f_list :-
   member(MemberID, FamilyID, Тип, Фамилия, Имя, Отчество, Год, Пол, Доход, Близнец),
   % Вывести информацию о member в строку
   write(MemberID), write('. '), write(Тип), write('\t: '), write(Фамилия), write(' '), write(Имя), write(' '), write(Отчество), nl,
-  write('    '), write('год: '), write(Год), write('; пол: '), write(Пол), write('; salary: '), write(Доход), nl,
+  write('    '), write('year: '), write(Год), write('; gender: '), write(Пол), write('; salary: '), write(Доход), nl,
   % Если является близнецом, то сказать об этом
   (Близнец \= нет -> write('    '), write('twin: '), write(Близнец), nl; true),
   fail.
@@ -233,7 +233,7 @@ do(5) :-
 
 do(6) :-
 	f_add,
-	write('Successfully added new empty family').
+	write('Successfully added new empty family'), nl.
 	
 do(7) :-
 	write('Input FamilyID: '), nl,
@@ -255,9 +255,66 @@ do(7) :-
 	write('Input Twin: '), nl,
 		read(Близнец),
 	m_add(FamilyID, Тип, Фамилия, Имя, Отчество, Год, Пол, Доход, Близнец).
+
+do(8) :- 
+	write('List of all families and families members'), nl,
+	f_list.
+
+do(9) :-
+	write('Max ID of families'), nl,
+	getMaxIDFamily(Max).
+	
+do(10) :- 
+	write('Max ID of members'), nl,
+	getMaxIDMember(Max).
+	
+do(11) :-
+	write('Input MemberID: '), nl,
+		read(MemberID),
+	write('Input FamilyID'), nl,
+		read(FamilyID),
+	m_updateFamily(MemberID, FamilyID),
+	write('Successfully updated'), nl.
+	
+do(12) :- 
+	write('Input FamilyID: '), nl,
+		read(FamilyID),
+	write('Input HusbandID: '), nl,
+		read(HusbandID),
+	f_updateHusband(FamilyID, HusbandID),
+	write('Successfully updated husband.'), nl.
+
+do(13) :-
+	write('Input FamilyID: '), nl,
+		read(FamilyID),
+	write('Input WifeID: '), nl,
+		read(WifeID),
+	f_updateWife(FamilyID, WifeID),
+	write('Successfully updated husband.'), nl.
+	
+do(14) :- 
+	write('Input FamilyID: '), nl,
+		read(FamilyID),
+	write('Input Children: '), nl,
+		read(HusbandID),
+	f_updateChildren(FamilyID, Children),
+	write('Successfully updated children.'), nl.
+	
+do(15) :- 
+	write('Input FamilyID: '), nl,
+		read(FamilyID),
+	f_delete(FamilyID),
+	write('Successfully deleted family.'), nl.
+	
+do(16) :- 
+	write('Input FamilyID: '), nl,
+		read(FamilyID),
+	write('Input MemberID: '), nl,
+	m_delete(FamilyID, MemberID),
+	write('Successfully deleted family member.'), nl.
 	
 do(0) :- 
-	write('Exit').
+	write('Exit'), nl.
 do(_) :-
 	write('Wrong input'), nl,
 	fail.
