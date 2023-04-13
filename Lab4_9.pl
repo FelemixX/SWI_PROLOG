@@ -185,4 +185,82 @@ filter5 :-
   (length(Children, 1) -> member(_, FamilyID, муж, Фамилия, _, _, _, _, _, _), write('Семья: '), write(Фамилия), nl; true),
   fail.
 
-% Сделать меню
+
+menu :- 
+	repeat, nl, nl, 
+	write('1. Find all twins'), nl,
+	write('2. Find all child born in exact year'), nl,
+	write('3. Find all whives who work whos salary is more than defined salary'), nl,
+	write('4. Find all surnames of people that have defined number of children'), nl,
+	write('5. Find all people that have single child'), nl,
+	write('6. Add new empty family'), nl,
+	write('7. Add new member to family'), nl,
+	write('8. Print all families and families members'), nl,
+	write('9. Get max id value of families'), nl,
+	write('10. Get max id value of members'), nl,
+	write('11. Update family by family id and member id'), nl,
+	write('12. Update husband in family'), nl,
+	write('13. Update wife in family'), nl,
+	write('14. Update child in family'), nl,
+	write('15. Delete family by id'), nl,
+	write('16. Delete family member by id'), nl,
+	write('0. Выход'), nl,
+	read(X), 
+	do(X).
+
+do(1) :-
+	write('Twins found: '), nl,
+	filter1.
+	
+do(2) :- 
+	write('Input year of birth: '), nl,
+		read(Year),
+	filter2(Year).
+	
+do(3) :- 
+	write('Input salary: '), nl,
+		read(Sum),
+	filter3(Sum).
+	
+do(4) :- 
+	write('Input count of children: '), nl,
+		read(Count),
+	filter4(Count).
+	
+do(5) :- 
+	write('Found families with single child: '), nl, 
+	filter5.
+
+do(6) :-
+	f_add,
+	write('Successfully added new empty family').
+	
+do(7) :-
+	write('Input FamilyID: '), nl,
+		read(FamilyID),
+	write('Input Type: '), nl,
+		read(Тип),
+	write('Input Surname: '), nl,
+		read(Фамилия),
+	write('Input Name: '), nl,
+		read(Имя),
+	write('Input Third Name: '), nl,
+		read(Отчество),
+	write('Input Year of Birth: '), nl,
+		read(Год),
+	write('Input Gender: '), nl,
+		read(Пол),
+	write('Input Salary: '), nl,
+		read(Доход),
+	write('Input Twin: '), nl,
+		read(Близнец),
+	m_add(FamilyID, Тип, Фамилия, Имя, Отчество, Год, Пол, Доход, Близнец).
+	
+do(0) :- 
+	write('Exit').
+do(_) :-
+	write('Wrong input'), nl,
+	fail.
+
+% Запуск программы
+:- initialization(menu).
