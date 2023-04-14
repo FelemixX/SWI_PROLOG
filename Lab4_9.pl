@@ -204,6 +204,7 @@ menu :-
 	write('14. Update child in family'), nl,
 	write('15. Delete family by id'), nl,
 	write('16. Delete family member by id'), nl,
+    write('17. Delete all members in family'), nl,
 	write('0. Exit'), nl,
 	read(X), 
 	do(X).
@@ -312,7 +313,12 @@ do(16) :-
 	write('Input MemberID: '), nl,
 	m_delete(FamilyID, MemberID),
 	write('Successfully deleted family member.'), nl.
-	
+
+do(17) :-
+    	write('Input FamilyID'), nl,
+    		read(FamilyID),
+    	f_deleteAll(FamilyID),
+    	write('Successfully deleted'), nl.
 do(0) :- 
 	write('Exit'), nl.
 do(_) :-
